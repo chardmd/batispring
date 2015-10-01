@@ -4,7 +4,6 @@ package library.modules.config;
 import library.modules.config.root.AppSecurityConfig;
 import library.modules.config.root.DevelopmentConfiguration;
 import library.modules.config.root.RootContextConfig;
-import library.modules.config.root.TestConfiguration;
 import library.modules.config.servlet.ServletContextConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -17,8 +16,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RootContextConfig.class, DevelopmentConfiguration.class, TestConfiguration.class,
-                AppSecurityConfig.class};
+        return new Class<?>[]{RootContextConfig.class, DevelopmentConfiguration.class, AppSecurityConfig.class};
     }
 
     @Override
