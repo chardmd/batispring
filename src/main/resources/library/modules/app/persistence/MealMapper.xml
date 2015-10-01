@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="library.modules.app.persistence.MealMapper">
+
+    <select id="countMealsByDateTime" resultType="long">
+          SELECT count(a.id) FROM meals a INNER JOIN users b ON a.user_id = b.id
+          <where>
+              b.username = #{username} AND (to_char(a.date, 'yyyy-mm-dd') BETWEEN #{fromDate} AND #{toDate})
+              AND (to_char(a.time, 'HH:mm:ss') BETWEEN #{fromTime} AND #{toTime})
+          </where>
+    </select>
+
+    <select id="findMealsByDateTime" resultType="library.modules.app.model.Meal">
+        SELECT a.id, a.calories, a.date, a.description, a.time,
+                a.user_id FROM meals a INNER JOIN users b ON a.user_id = b.id
+        <where>
+            b.username = #{username} AND (to_char(a.date, 'yyyy-mm-dd') BETWEEN #{fromDate} AND #{toDate})
+            AND (to_char(a.time, 'HH:mm:ss') BETWEEN #{fromTime} AND #{toTime})
+        </where>
+        ORDER BY a.date desc LIMIT 10 OFFSET #{offset}
+    </select>
+
+    <select id="findMealById" resultType="library.modules.app.model.Meal">
+        SELECT * FROM meals WHERE id = #{mealId}
+    </select>
+
+    <select id="getLastInsertedMeal" resultType="library.modules.app.model.Meal">
+         SELECT * FROM meals ORDER BY ID DESC LIMIT 1
+    </select>
+
+    <delete id="delete">
+        DELETE FROM meals WHERE id = #{mealId}
+    </delete>
+
+    <insert id="save">
+        INSERT INTO meals (date, time, description, calories, user_id)
+        VALUES (#{meal.date}, #{meal.time}, #{meal.description}, #{meal.calories}, #{user.id})
+    </insert>
+
+    <insert id="update">
+        UPDATE meals SET date = #{meal.date}, description = #{meal.description}, calories = #{meal.calories}, time = #{meal.time}
+        WHERE id = #{mealId};
+    </insert>
+
+</mapper>
