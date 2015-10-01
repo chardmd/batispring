@@ -1,1 +1,1 @@
-angular-spring-mybatis
+# fullstack-blueprint
