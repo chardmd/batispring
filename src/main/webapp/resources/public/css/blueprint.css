@@ -13,6 +13,11 @@
     display: none !important;
 }
 
+.login-form {
+    margin: 0 auto;
+    width: 300px;
+}
+
 .form-messages {
     margin-top: 1em;
     font-size: 0.9em;
